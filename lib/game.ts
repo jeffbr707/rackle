@@ -73,8 +73,8 @@ export function validateGuess(word: string, rack: Record<string, number>): strin
   if (!/^[a-z]{5}$/.test(w)) return "Enter a 5-letter word.";
   const upper = w.toUpperCase();
   if (!canMakeWordFromRack(upper, rack)) return "You don't have those letters in your rack.";
-  // Dictionary check (demo list).
-  if (!WORDS.includes(w)) return "Not in word list (demo list).";
+  // Dictionary check
+  if (!WORDS.includes(w)) return "Not in word list.";
   return null;
 }
 
