@@ -82,16 +82,41 @@ export default function Page() {
   const knowledge = useMemo(() => overallLetterKnowledge(state?.guesses ?? []), [state?.guesses]);
   const canPlay = state?.status === "playing";
 
+
+    const effectiveRack = useMemo(() => {
+      if (!state) return {};
+      if (!canPlay) return state.rack;
+      return remainingRackForInput(state.rack, input);
+    }, [state, canPlay, input]);
+
   function showToast(text: string, kind: "ok" | "error" | "muted" = "muted") {
     setToast({ text, kind });
     window.clearTimeout((showToast as any)._t);
     (showToast as any)._t = window.setTimeout(() => setToast(null), 2200);
   }
 
-  function onPickLetter(ch: string) {
-    if (!state || !canPlay) return;
-    if (input.length >= 5) return;
-    setInput((prev) => (prev + ch).toUpperCase());
+
+function remainingRackForInput(rack: Record<string, number>, currentInput: string): Record<string, number> {
+  const remaining: Record<string, number> = { ...rack };
+  for (const ch of currentInput.toUpperCase()) {
+    if (!/^[A-Z]$/.test(ch)) continue;
+    const next = (remaining[ch] ?? 0) - 1;
+    if (next <= 0) delete remaining[ch];
+    else remaining[ch] = next;
+  }
+  return remaining;
+}
+
+    function onPickLetter(ch: string) {
+
+if (!state || !canPlay) return;
+if (input.length >= 5) return;
+
+// Prevent selecting a letter more times than the rack contains.
+const remaining = remainingRackForInput(state.rack, input);
+if ((remaining[ch] ?? 0) <= 0) return;
+
+setInput((prev) => (prev + ch).toUpperCase());
   }
 
   function onBackspace() {
@@ -175,7 +200,8 @@ export default function Page() {
       <div className="topbar">
         <div className="title">
           <h1>Rackle</h1>
-         </div>
+          <div className="sub">Wordle + letter-rack economy • Daily seed • {dateKey || "…"}</div>
+        </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "flex-end" }}>
           <button className="btn" onClick={() => setHelpOpen(true)}>How to play</button>
           <button className="btn" onClick={() => setStatsOpen(true)}>Stats</button>
@@ -193,7 +219,7 @@ export default function Page() {
                 "Build a word using only letters in your rack. Gray tiles burn; you draw 2 new letters each round.")}
           </div>
 
-          <div className="statusRow">
+          <div className="inputRow">
             <div className="pill">Input: <span style={{ letterSpacing: 2 }}>{input.padEnd(5, "•")}</span></div>
             <div className="pill">Rounds: {state ? state.guesses.length : 0}/{state ? state.maxRounds : 5}</div>
             <div className="pill">Rack left: {rackLeft}</div>
@@ -201,7 +227,7 @@ export default function Page() {
 
           <div style={{ marginTop: 14 }}>
             <Keyboard
-              rack={state?.rack ?? {}}
+              rack={effectiveRack}
               knowledge={knowledge}
               onLetter={onPickLetter}
               onEnter={onEnter}
@@ -211,6 +237,7 @@ export default function Page() {
           </div>
 
           <div className="footerNote">
+            Note: this demo ships with a compact built-in word list. Expand <code>lib/words.ts</code> to widen the dictionary.
           </div>
         </div>
       </div>
