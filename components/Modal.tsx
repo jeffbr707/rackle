@@ -15,11 +15,16 @@ export function Modal({
   return (
     <div className="modalOverlay" role="dialog" aria-modal="true" onMouseDown={onClose}>
       <div className="modal" onMouseDown={(e) => e.stopPropagation()}>
+        <button
+          className="modalClose"
+          onClick={onClose}
+          aria-label="Close dialog"
+          title="Close"
+        >
+          ×
+        </button>
         <h3>{title}</h3>
         {children}
-        <div className="actions">
-          <button className="btn" onClick={onClose}>Close</button>
-        </div>
       </div>
     </div>
   );
