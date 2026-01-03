@@ -193,7 +193,7 @@ export default function Page() {
                 "Build a word using only letters in your rack. Gray tiles burn; you draw 2 new letters each round.")}
           </div>
 
-          <div className="inputRow">
+          <div className="statusRow">
             <div className="pill">Input: <span style={{ letterSpacing: 2 }}>{input.padEnd(5, "•")}</span></div>
             <div className="pill">Rounds: {state ? state.guesses.length : 0}/{state ? state.maxRounds : 5}</div>
             <div className="pill">Rack left: {rackLeft}</div>
