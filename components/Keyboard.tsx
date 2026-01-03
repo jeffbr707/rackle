@@ -31,7 +31,7 @@ export function Keyboard({
     <div className="kbd" aria-label="Keyboard">
       <div className="kbdRow" style={{ gridTemplateColumns: "repeat(10, 1fr)" }}>
         {ROWS[0].split("").map((ch) => {
-          const can = (rack[ch] ?? 0) > 0;
+          const can = (rack[ch] ?? 0) > 0 && knowledge[ch] !== "absent";
           return (
             <button
               key={ch}
@@ -47,7 +47,7 @@ export function Keyboard({
 
       <div className="kbdRow" style={{ gridTemplateColumns: "repeat(9, 1fr)" }}>
         {ROWS[1].split("").map((ch) => {
-          const can = (rack[ch] ?? 0) > 0;
+          const can = (rack[ch] ?? 0) > 0 && knowledge[ch] !== "absent";
           return (
             <button
               key={ch}
@@ -66,7 +66,7 @@ export function Keyboard({
           ENTER
         </button>
         {ROWS[2].split("").map((ch) => {
-          const can = (rack[ch] ?? 0) > 0;
+          const can = (rack[ch] ?? 0) > 0 && knowledge[ch] !== "absent";
           return (
             <button
               key={ch}

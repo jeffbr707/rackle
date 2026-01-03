@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Board } from "@/components/Board";
-import { Rack } from "@/components/Rack";
 import { Keyboard } from "@/components/Keyboard";
 import { Modal } from "@/components/Modal";
 import {
@@ -176,7 +175,7 @@ export default function Page() {
       <div className="topbar">
         <div className="title">
           <h1>Rackle</h1>
-          <div className="sub">Normal + letter-rack economy • Daily seed • {dateKey || "…"}</div>
+          <div className="sub">Wordle + letter-rack economy • Daily seed • {dateKey || "…"}</div>
         </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "flex-end" }}>
           <button className="btn" onClick={() => setHelpOpen(true)}>How to play</button>
@@ -188,7 +187,7 @@ export default function Page() {
 
       <div className="grid">
         <div className="card">
-          <Board guesses={state?.guesses ?? []} currentInput={canPlay ? input : ""} maxRounds={state?.maxRounds ?? 8} />
+          <Board guesses={state?.guesses ?? []} currentInput={canPlay ? input : ""} maxRounds={state?.maxRounds ?? 5} />
           <div className={"message " + (toast?.kind === "error" ? "error" : toast?.kind === "ok" ? "ok" : "")}>
             {toast?.text ??
               (state?.message ??
@@ -216,22 +215,11 @@ export default function Page() {
             Note: this demo ships with a compact built-in word list. Expand <code>lib/words.ts</code> to widen the dictionary.
           </div>
         </div>
-
-        <div className="card">
-          <Rack rack={state?.rack ?? {}} onPick={onPickLetter} />
-          <hr className="hr" />
-          <div className="footerNote">
-            <b>Rule recap:</b> each guess must be made from your rack (letters are counted). After scoring, any <b>gray</b> letter tiles are removed
-            (per instance), and you automatically <b>draw 2 new letters</b>.
-            <br /><br />
-            Goal: solve in {state?.maxRounds ?? 8} rounds.
           </div>
         </div>
-      </div>
-
       <Modal open={helpOpen} title="How to play" onClose={() => setHelpOpen(false)}>
         <ul>
-          <li>Guess the daily 5-letter word in <b>8</b> rounds.</li>
+          <li>Guess the daily 5-letter word in <b>5</b> rounds.</li>
           <li>You can only use letters currently in your <b>rack</b> (counts matter).</li>
           <li>After each guess: <b>gray</b> letters are burned (removed from your rack, per instance), while <b>yellow</b>/<b>green</b> tiles stay.</li>
           <li>Then you automatically <b>draw 2 new letters</b>.</li>
@@ -259,7 +247,7 @@ export default function Page() {
 
             <p><b>Win distribution</b></p>
             <div style={{ display: "grid", gap: 6 }}>
-              {Array.from({ length: 8 }, (_, i) => i + 1).map((n) => {
+              {Array.from({ length: 5 }, (_, i) => i + 1).map((n) => {
                 const c = stats.winDist[String(n)] ?? 0;
                 return (
                   <div key={n} style={{ display: "flex", gap: 10, alignItems: "center" }}>

@@ -3,7 +3,7 @@
 A Wordle-spinoff where you guess using a limited **letter rack** that changes over time.
 
 ## Rules
-- Guess the daily 5-letter word in 8 rounds.
+- Guess the daily 5-letter word in 5 rounds.
 - You can only use letters currently in your rack (counts matter).
 - After each guess:
   - **Gray** letters are burned (removed from your rack, per instance).

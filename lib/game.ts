@@ -151,7 +151,7 @@ export function applyGuess(state: GameState, guessWord: string): GameState {
 export function newGame(dateKey: string): GameState {
   const answer = pickAnswer(dateKey);
   const rackSizeStart = 12;
-  const maxRounds = 8;
+  const maxRounds = 5;
   const drawPerRound = 2;
 
   return {
