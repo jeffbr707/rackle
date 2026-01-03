@@ -216,3 +216,9 @@ button, input { font: inherit; }
 .modal p, .modal li { color: var(--muted); line-height: 1.5; }
 .modal .actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 12px; flex-wrap: wrap; }
 .hr { height: 1px; background: rgba(42,42,54,0.95); margin: 12px 0; border: 0; }
+
+
+  .kbdKey.small {
+    font-size: 14px;
+    padding: 0;
+  }

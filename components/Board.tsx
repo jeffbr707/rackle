@@ -17,10 +17,19 @@ export function Board({
   currentInput: string;
   maxRounds: number;
 }) {
+  const activeRow = guesses.length;
+
   const rows = [];
   for (let r = 0; r < maxRounds; r++) {
     const g = guesses[r];
-    const letters = g ? g.word.split("") : currentInput.padEnd(5, " ").split("");
+
+    const isActive = !g && r === activeRow;
+    const letters = g
+      ? g.word.split("")
+      : isActive
+        ? currentInput.padEnd(5, " ").split("")
+        : "     ".split("");
+
     const statuses = g?.statuses;
 
     rows.push(
@@ -36,5 +45,6 @@ export function Board({
       </div>
     );
   }
+
   return <div className="board">{rows}</div>;
 }

@@ -78,9 +78,9 @@ export function Keyboard({
             </button>
           );
         })}
-        <button className={keyClass(undefined, disabled, true)} disabled={disabled} onClick={onBackspace}>
-          ⌫
-        </button>
+        <button className={"kbdKey small" + (disabled ? " disabled" : "")} disabled={disabled} onClick={onBackspace}>
+            ⌫
+          </button>
       </div>
     </div>
   );
