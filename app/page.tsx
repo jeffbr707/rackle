@@ -175,8 +175,7 @@ export default function Page() {
       <div className="topbar">
         <div className="title">
           <h1>Rackle</h1>
-          <div className="sub">Wordle + letter-rack economy • Daily seed • {dateKey || "…"}</div>
-        </div>
+         </div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", justifyContent: "flex-end" }}>
           <button className="btn" onClick={() => setHelpOpen(true)}>How to play</button>
           <button className="btn" onClick={() => setStatsOpen(true)}>Stats</button>
@@ -212,7 +211,6 @@ export default function Page() {
           </div>
 
           <div className="footerNote">
-            Note: this demo ships with a compact built-in word list. Expand <code>lib/words.ts</code> to widen the dictionary.
           </div>
         </div>
       </div>
