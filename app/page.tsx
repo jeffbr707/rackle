@@ -196,7 +196,7 @@ export default function Page() {
 
           <div className="inputRow">
             <div className="pill">Input: <span style={{ letterSpacing: 2 }}>{input.padEnd(5, "•")}</span></div>
-            <div className="pill">Rounds: {state ? state.guesses.length : 0}/{state ? state.maxRounds : 8}</div>
+            <div className="pill">Rounds: {state ? state.guesses.length : 0}/{state ? state.maxRounds : 5}</div>
             <div className="pill">Rack left: {rackLeft}</div>
           </div>
 
@@ -215,8 +215,8 @@ export default function Page() {
             Note: this demo ships with a compact built-in word list. Expand <code>lib/words.ts</code> to widen the dictionary.
           </div>
         </div>
-          </div>
-        </div>
+      </div>
+
       <Modal open={helpOpen} title="How to play" onClose={() => setHelpOpen(false)}>
         <ul>
           <li>Guess the daily 5-letter word in <b>5</b> rounds.</li>
